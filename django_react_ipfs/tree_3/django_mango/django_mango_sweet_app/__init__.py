@@ -1,0 +1,1 @@
+# default_app_config = 'django_mango_sweet_app.user.apps.UserConfig'

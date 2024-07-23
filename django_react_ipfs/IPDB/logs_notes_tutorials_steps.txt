@@ -1,0 +1,123 @@
+==================================================================================================
+1. The first part. Creating the website and the application and manage there structure.
+
+
+references:
+https://docs.djangoproject.com/en/5.0/intro/tutorial01/
+https://pythongeeks.org/django-project-structure/
+
+
+1. Create django website project in IPDB directory by running the command:
+    django-admin startproject django_website
+    where the django_website will be the name of django website project
+
+2. verify your Django project works. Change into the outer mysite directory, if you haven’t already, and run the following commands:
+    python manage.py runserver
+
+3. To create your app, make sure you’re in the same directory as manage.py and type this command:
+    python manage.py startapp ipdb_application_backend_django
+    where the ipdb_application_backend_django will be the name of django application
+
+4. write the first view the file ipdb_application_backend_django/views.py
+
+5. To call the view, we need to map it to a URL - and for this we need a URLconf.
+    To create a URLconf in the ipdb_application_backend_django directory, create a file called urls.py.
+
+6. The next step is to point the root URLconf at the ipdb_application_backend_django.urls module.
+In django_website/urls.py, add an import for django.urls.include and insert an include() in the urlpatterns list, so you have:
+    The include() function allows referencing other URLconfs.
+    You should always use include() when you include other URL patterns. admin.site.urls is the only exception to this.
+
+7. Migrating Django models to the database:
+    python manage.py makemigrations
+    python manage.py migrate
+    # python manage.py makemigrations --empty --name ipdb_application_backend_django ipdb_application_backend_django (create data migration file)
+    # create and modify django_website/ipdb_application_backend_django/migrations/0002_initial.py
+    # python manage.py migrate
+
+
+==================================================================================================
+2. The second part. Building an authentication system with backend technology. (Backend with Django)
+
+
+references:
+https://dev.to/koladev/django-rest-authentication-cmh
+
+
+1. open the django_website/settings.py file containing Django configurations and
+add ipdb_application_backend_django to the INSTALLED_APPS
+
+2. We can now create the user application and start adding features.
+    cd ipdb_application_backend_django && python ../manage.py startapp user
+    So we have created the user application inside of the ipdb_application_backend_django application
+    Then we should add ipdb_application_backend_django.user to the INSTALLED_APPS as well
+
+3. For this configuration to work, you'll need to modify the name of the app in ipdb_application_backend_django/user/apps.py
+
+4. And also to modify the __init__.py file in ipdb_application_backend_django/user directory.
+
+[Writing User logic : ]
+
+5. modify the ipdb_application_backend_django/user/models.py by adding UserManager and User classes
+
+6. Specify to Django to use this new User model as the AUTH_USER_MODEL by adding to the django_website/settings.py file
+AUTH_USER_MODEL = 'ipdb_application_backend_django_user.User'
+
+7. migration ??
+
+8. Create and modify ipdb_application_backend_django/user/serializers.py (Adding User serializer )
+
+9. modify ipdb_application_backend_django/user/views.py (Adding User viewset )
+
+( Authentication):
+
+10.
+    We'll use authentication using JWT tokens.
+    we'll use the djangorestframework-simplejwt to implement an access/refresh logic.
+    Add rest_framework_simplejwt.authentication.JWTAuthentication to the list of authentication classes in settings.py
+
+11.
+    First of all, let's create a package auth in ipdb_application_backend_django.
+    In that package, create a file serializers.py which will contain the login and register serializers and modify it
+
+12.
+    Then, we can create ipdb_application_backend_django/auth/views.py and write the viewsets in it
+
+13. The next step is to register the routes.
+    Create a file routers.py in the ipdb_application_backend_django directory and modify it
+    by adding in it AUTHENTICATION routs and USER routs and urlpatterns
+
+14. Include the routers.urls in the standard list of URL patterns in django_website.
+
+15. The User endpoints, login, and register viewsets are ready.
+    Don't forget to run migrations and start the server and test the endpoints.
+    localhost:8000/api/auth/register/
+    {
+        "email": "testuser@yopmail.com",
+        "password": "12345678",
+        "username": "testuser"
+    }
+
+    curl localhost:8000/api/auth/register/ \
+       --header "Content-Type: application/json" \
+       --request POST \
+       --data '{"email":"testuser@yopmail.com", "password":"12345678", "username":"testuser"}'
+
+
+==================================================================================================
+3. The third part. Managing the authentication flow with a frontend technology. (Front-end with React)
+
+
+references:
+https://dev.to/koladev/django-rest-authentication-cmh
+https://blog.logrocket.com/using-react-django-create-app-tutorial/
+
+
+1. ...
+
+2. ...
+
+
+
+
+

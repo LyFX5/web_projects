@@ -1,0 +1,38 @@
+    static double[][] minor(double[][] matrix, int m, int n){ // я ахуел пока собрал этот метод
+        // на следующий день оказалось что не правильно и через ещё часа 4 получилось
+        
+        if ((matrix.length == 0) || (matrix[m].length == 0)){
+            return null;
+        }else {
+            double[][] matrixN = new double[matrix.length][matrix[m].length];
+
+            for (int i = 0; i < matrixN.length; i++){
+                for (int j = 0; j < matrixN[i].length; j++){
+                    matrixN[i][j] = matrix[i][j];
+                }
+            }
+
+            double[][] minor = new double[matrixN.length - 1][matrixN[m].length - 1];
+
+            if (m < matrixN.length - 1) {
+                for (int i = 0; i < matrixN.length - m - 1; i++) {
+                    for (int j = 0; j < matrixN[i].length; j++) {
+                        matrixN[i + m][j] = matrixN[i + m + 1][j];
+                    }
+                }
+            }
+            if (n < matrixN[0].length - 1) {
+                for (int i = 0; i < matrixN.length; i++){
+                    for (int j = 0; j < matrixN[i].length - n - 1; j++) {
+                        matrixN[i][j + n] = matrixN[i][j + n + 1];
+                    }
+                }
+            }
+            for (int i = 0; i < minor.length; i++){
+                for (int j = 0; j < minor[i].length; j++){
+                    minor[i][j] = matrixN[i][j];
+                }
+            }
+            return minor;
+        }
+    }

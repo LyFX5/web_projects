@@ -1,0 +1,1 @@
+default_app_config = 'ipdb_application_backend_django.user.apps.UserConfig'

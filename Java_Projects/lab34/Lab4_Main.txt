@@ -1,0 +1,19 @@
+Traveling puteshestvie = new Traveling(Towns.CVETOCHI_GOROD.Znaika,Towns.CVETOCHI_GOROD.Druzia_Znaiki);
+        puteshestvie.finish();
+        Towns t = Towns.CVETOCHI_GOROD;
+        System.out.println(t.toString() +"\n"+ t.news);
+        if (t.gettime().getHours() > 1 ){
+            Home mesto = Citizen.sobiratsa_vmeste(t.Domik_Znaiki);
+            System.out.println("в " +t.gettime().getHours()+ " часа"+"\n"+ "Собрались у " + mesto.toString()+"\n");
+            try {
+                if(t.Domik_Znaiki.openTheDoor(t.Znaika.getHomeKey())){
+                    System.out.println("Дверь открыта");
+                }
+            }catch (NotOwnerException noe){
+                noe.what_is_wrong();
+                noe.printStackTrace();
+            }
+            Citizen.listen();
+            String story = t.Znaika.tell_about();
+            System.out.println(story);
+        }

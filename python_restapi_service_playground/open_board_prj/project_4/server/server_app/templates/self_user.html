@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{#<img src="./tree_man.jpg" alt="tree_man">#}
+
+{% block body %}
+<div class="container mt-5">
+    <p><h1>расти росток мой {{username}}</h1></p>
+
+    <form action="/create_board">
+      <input type="submit" value="создать доску">
+    </form>
+
+    <p></p>
+    <p>найди доску</p>
+    <form action="/find_board" method = "post">
+      <input type="text" name="board_name" id="board_name_id" class="form-control"><br>
+    </form>
+
+    <p>найди мана ман</p>
+    <form action="/find_user" method = "post">
+      <input type="text" name="user_name" id="user_name_id" class="form-control"><br>
+    </form>
+
+    <p>если хочешь идти -- иди</p>
+    <form action="/logout">
+      <input type="submit" value="на связи">
+    </form>
+
+    <p><h1>тут твои доски</h1></p>
+    {% for board_name in boards_names %}
+            <div class="alert">
+                <form action="/go_to_self_board">
+                  <input type="submit" value="{{board_name}}">
+                </form>
+            </div>
+    {% endfor %}
+</div>
+{% block contents %}{% endblock %}
+{% endblock %}
+
+

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mt-5">
+  <h1>Добро пожаловать в Неоновую Церковь Древа, товарищ!</h1>
+  <h1>предоставь открытый и закрытый ключи</h1>
+    <form action="/login" method="POST">
+  <input type="username" name="public_key" placeholder="публичный ключ">
+<input type="password" name="private_key" placeholder="приватный ключ">
+<input type="submit" value="полетели">
+</form>
+</div>
+{% block contents %}{% endblock %}
+{% endblock %}
+

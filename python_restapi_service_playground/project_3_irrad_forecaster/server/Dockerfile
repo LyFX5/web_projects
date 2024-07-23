@@ -1,0 +1,39 @@
+# На всякий случай напоминаю, что Dockerfile всегда должен начинаться с импорта базового образа.
+# Для этого используется ключевое слово 'FROM'.
+# Здесь нам нужно импортировать образ python (с DockerHub).
+# В результате мы, в качестве имени образа, указываем 'python', а в качестве версии - 'latest'.
+
+FROM python:3.10
+
+# Для того чтобы запустить в контейнере код, написанный на Python, нам нужно импортировать файлы 'app.py' и 'index.html'.
+# Для того чтобы это сделать, мы используем ключевое слово 'ADD'.
+# Первый параметр, 'app.py', представляет собой имя файла, хранящегося на компьютере.
+# Второй параметр, '/server/', это путь, по которому нужно разместить указанный файл в образе.
+# Здесь мы помещаем файл в папку образа '/server/'.
+
+WORKDIR /server/
+
+ADD requirements.txt /server/
+
+RUN python3 -m pip install --upgrade pip
+RUN pip install --default-timeout=1000 -r /server/requirements.txt
+
+ADD main.py /server/
+ADD weather.db /server/
+COPY app /server/app
+# ADD app.py /server/
+# ADD inference_psh.py /server/
+# ADD irradiance_daily_mean_init_model_psh.pkl /server/
+# ADD models.py /server/
+# ADD weather_analysis_utilities.py /server/
+
+# Здесь мы воспользуемся командой 'WORKDIR', возможно, новой для вас.
+# Она позволяет изменить рабочую директорию образа.
+# В качестве такой директории, в которой будут выполняться все команды, мы устанавливаем '/server/'.
+
+
+
+# устанавливаем требуемые зависимости
+
+
+

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{#<img src="./tree_man.jpg" alt="tree_man">#}
+
+{% block body %}
+<div class="container mt-5">
+    <p><h1>это отстойная доска {{username}}</h1></p>
+
+    <p>излей душу братишка</p>
+    <form action="/message" method = "post">
+      <input type="text" name="message" id="message_id" class="form-control"><br>
+    </form>
+
+{#    <p>поделись мемасиком</p>#}
+{#    <form action="/upload_file" method = "post" enctype = "multipart/form-data">#}
+{#      <input type="file" name="file" id="file">#}
+{#    </form>#}
+
+    <p></p>
+    <p>найди мана ман</p>
+    <form action="/find_user" method = "post">
+      <input type="text" name="user_name" id="user_name_id" class="form-control"><br>
+    </form>
+
+    <p>если хочешь идти -- иди</p>
+    <form action="/logout">
+      <input type="submit" value="на связи">
+    </form>
+
+    <p><h1>тут древописки {{username}}</h1></p>
+    {% for message in messages %}
+            <div class="alert">
+                <h3>{{message}}</h3>
+            </div>
+    {% endfor %}
+</div>
+{% block contents %}{% endblock %}
+{% endblock %}
+
+

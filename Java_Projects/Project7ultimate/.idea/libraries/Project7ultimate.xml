@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Project7ultimate">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/gson-2.8.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/smtp-1.4.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/activation-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/postgresql-42.2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/javamail-1.4.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

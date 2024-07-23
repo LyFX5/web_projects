@@ -1,0 +1,6 @@
+<?xml version= "1.0"encoding="utf-8"?>
+<Animal>
+<Animal name="barsik" size="5" location="0.0"/>
+<Animal name="lora" size="6" location="0.0"/>
+<Animal name="theLast" size="5" location="0.0"/>
+<Animal/>

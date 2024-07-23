@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{#<img src="./tree_man.jpg" alt="tree_man">#}
+
+{% block body %}
+<div class="container mt-5">
+    <p><h1>добро пожаловать к {{username}}</h1></p>
+
+    <form action="/open_chat">
+      <input type="submit" value="восписАться">
+    </form>
+
+    <p></p>
+    <p><h1>доски {{username}}</h1></p>
+    {% for board_name in boards_names %}
+            <div class="alert">
+                <form action="/go_to_other_board">
+                  <input type="submit" value="{{board_name}}">
+                </form>
+            </div>
+    {% endfor %}
+</div>
+{% block contents %}{% endblock %}
+{% endblock %}
+
+

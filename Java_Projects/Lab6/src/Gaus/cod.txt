@@ -1,0 +1,154 @@
+static ArrayList<double[][]> generalGaus(double[][] matrix){
+        int m = matrix.length;
+        int n = matrix[0].length;
+        ArrayList<double[][]> arrayOfMatrix = new ArrayList<>(n - 2);
+        for (int k = 0; k < n - 2; k++) {
+            if (k == 0) {
+                arrayOfMatrix.add(k,gaus(matrix));
+            } else {
+                arrayOfMatrix.add(k,gaus(minor(arrayOfMatrix.get(k-1), k - 1, k - 1)));
+            }
+        }
+        return arrayOfMatrix;
+    }
+
+    static double[][] tempalary(ArrayList<double[][]> arrayOfMatrix){
+            int m = arrayOfMatrix.get(0).length;
+            int n = arrayOfMatrix.get(0)[0].length;
+            int N = arrayOfMatrix.size();
+            double[][] res = new double[m][n];
+            for (int k = 0; k < N; k++) {
+                for (int i = 0; i < m - k; i++) {
+                    for (int j = 0; j < n - k; j++) {
+                        res[i + k][j + k] = arrayOfMatrix.get(k)[i][j];
+                    }
+                }
+            }
+            return res;
+        }
+    }
+
+ static double[][] fromListToMatrix(ArrayList<String> strings){
+        int d = strings.get(0).split(" ").length;
+        double[][] matrix = new double[strings.size()][d];
+        for (int i = 0; i < strings.size(); i++){
+            for (int j = 0; j < d; j++){
+                matrix[i][j] = Double.parseDouble(strings.get(i).split(" ")[j]);
+            }
+        }
+        return matrix;
+    }
+
+
+
+    static double[][] gaus(double[][] matrix){
+            int m = matrix.length;
+            int n = matrix[0].length;
+            double[][] resMatrix = new double[m][n];
+            if (Double.compare(matrix[0][0], 0.0) == 0){
+                return gaus(shuffleRows(matrix,0,1));
+            }else {
+                double[] coefForDeleteOne = new double[m - 1];
+                for (int i = 0; i < coefForDeleteOne.length; i++) {
+                    coefForDeleteOne[i] = (-1) * (matrix[i + 1][0] / matrix[0][0]);
+                }
+                for (int i = 0; i < m; i++) {
+                    for (int j = 0; j < n; j++) {
+                        if (i != 0) {
+                            if (!(Double.compare(matrix[i][0], 0.0) == 0)
+                            ) {
+                                resMatrix[i][j] = addArrays(matrix[i], multiplyArrayOnNum(matrix[0], coefForDeleteOne[i - 1]))[j];
+                            }
+                        } else {
+                            resMatrix[i][j] = matrix[i][j];
+                        }
+                    }
+                }
+                return resMatrix;
+            }
+        }
+
+        static double[][] rowEchelonForm(double[][] matrix){
+                int m = matrix.length;
+                int n = matrix[0].length;
+                int N = n - 2;
+                double[][] res = new double[m][n];
+                for (int k = 0; k < N; k++) {
+                    double[][] re = null;
+                    double[][] mat = gaus(matrix);
+                    if(k != 0) {
+                        re = gaus(minor(res, k - 1, k - 1));
+                    }
+                    for (int i = 0; i < m - k; i++) {
+                        for (int j = 0; j < n - k; j++) {
+                            if (k == 0){
+                                res[i][j] = mat[i][j];
+                            }else {
+                                res[i + k][j + k] = re[i][j];
+                            }
+                        }
+                    }
+                }
+                return res;
+
+            }
+
+            static double[][] readMatrix(){
+                    System.out.println();
+                    int m = 0;
+                    int n = 0;
+                    String string = "";
+                    try {
+                        for (int i = 0; i < 3; i++) {
+                            string += (char) System.in.read();
+                        }
+                    }
+                    catch (IOException e){
+                        System.out.println("Error reading from user");
+                    }
+                    m = Integer.parseInt(string.split(" ")[0]); // equation num
+                    n = Integer.parseInt(string.split(" ")[1]) + 1; // columns num == var nam + 1
+                    //System.out.println(m+" "+n);
+                    String strings = "";
+                    try{
+                        for (int i = 0; i < m; i++){
+                            for (int j = 0; j < n*2; j++) {
+                                strings += (char) System.in.read();
+                            }
+                        }
+                    }catch (IOException io){
+                        System.out.println("Error reading from user");
+                    }
+                    // we get big string == matrix == strings
+                    String[] strings1 = strings.split("\n");
+                    double[][] matrix = new double[m][n];
+                    for (int i = 0; i < m; i++){
+                        for(int j = 0; j < n; j++){
+                            //System.out.println(strings1[i + 1].split(" ")[j]);
+                            matrix[i][j] = Double.parseDouble(strings1[i + 1].split(" ")[j]);
+                        }
+                    }
+                    return matrix;
+                }
+
+
+                static double[] notSquare(double[][] A, double[] b) { // A and b is from row echelon form
+                        int m = A.length;
+                        int n = A[0].length;
+                        if(m > n){ // переопределённая система
+                            double sum = 0;
+                            for (int i = 0; i < b.length; i++){
+                                sum += Math.abs(Double.compare(b[i],0));
+                            }
+                            if (sum != 0) {
+                                System.out.println("NO");
+                                return new double[0];
+                            }else {
+                                System.out.println("INF");
+                                return new double[0];
+                            }
+                        }else { // недоопределённая система m < n
+                            System.out.println("INF");
+                            return new double[0];
+                        }
+                    }
